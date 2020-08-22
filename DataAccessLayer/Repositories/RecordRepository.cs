@@ -7,7 +7,7 @@ using System.Data.Entity;
 
 namespace DataAccessLayer.Repositories
 {
-    class RecordRepository : IRepository<Record>
+    public class RecordRepository : IRepository<Record>
     {
         private RecordContext db;
 
@@ -28,12 +28,18 @@ namespace DataAccessLayer.Repositories
 
         public void Update(Record item)
         {
-            db.Entry(item).State = EntityState.Modified;
+            if (db.Records.Find(item.Id) != null)
+                db.Entry(item).State = EntityState.Modified;
         }
 
         public IEnumerable<Record> GetAll()
         {
             return db.Records;
+        }
+
+        public void Save() 
+        {
+            db.SaveChanges();
         }
 
         public void Delete(int id)
@@ -45,5 +51,6 @@ namespace DataAccessLayer.Repositories
         {
             throw new NotImplementedException();
         }
+
     }
 }
