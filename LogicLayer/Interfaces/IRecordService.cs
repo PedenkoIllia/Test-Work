@@ -6,7 +6,8 @@ namespace LogicLayer.Interfaces
     public interface IRecordService
     {
         public IEnumerable<RecordDTO> GetRecords();
-        void AddRecord();
-        void ChangeRecord(int id);
+        void AddRecord(RecordDTO record);
+        void ChangeRecord(RecordDTO record);
+        void Dispose();
     }
 }
