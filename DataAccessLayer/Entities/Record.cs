@@ -1,6 +1,6 @@
 ﻿namespace DataAccessLayer.Entities
 {
-    class Record
+    public class Record
     {
         public int Id { get; set; }
         public string Code { get; set; }

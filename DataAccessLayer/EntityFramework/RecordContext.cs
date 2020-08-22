@@ -3,7 +3,7 @@ using System.Data.Entity;
 
 namespace DataAccessLayer.EntityFramework
 {
-    class RecordContext : DbContext
+    public class RecordContext : DbContext
     {
         public DbSet<Record> Records { get; set; }
 
