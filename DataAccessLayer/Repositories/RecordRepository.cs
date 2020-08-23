@@ -1,9 +1,8 @@
 ﻿using DataAccessLayer.Entities;
 using DataAccessLayer.EntityFramework;
 using DataAccessLayer.Interfaces;
-using System;
+using Microsoft.EntityFrameworkCore;
 using System.Collections.Generic;
-using System.Data.Entity;
 
 namespace DataAccessLayer.Repositories
 {
@@ -28,8 +27,7 @@ namespace DataAccessLayer.Repositories
 
         public void Update(Record item)
         {
-            if (db.Records.Find(item.Id) != null)
-                db.Entry(item).State = EntityState.Modified;
+            db.Entry(item).State = EntityState.Modified;
         }
 
         public IEnumerable<Record> GetAll()
@@ -41,16 +39,5 @@ namespace DataAccessLayer.Repositories
         {
             db.SaveChanges();
         }
-
-        public void Delete(int id)
-        {
-            throw new NotImplementedException();
-        }
-
-        public IEnumerable<Record> Find(Func<Record, bool> predicate)
-        {
-            throw new NotImplementedException();
-        }
-
     }
 }
