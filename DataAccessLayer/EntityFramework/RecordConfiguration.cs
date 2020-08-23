@@ -1,20 +1,26 @@
 ﻿using DataAccessLayer.Entities;
-using System.Data.Entity.ModelConfiguration;
+using Microsoft.EntityFrameworkCore;
+using Microsoft.EntityFrameworkCore.Metadata.Builders;
 
 namespace DataAccessLayer.EntityFramework
 {
-    class RecordConfiguration : EntityTypeConfiguration<Record>
-    {
-        public RecordConfiguration() {
-            ToTable("Records").HasKey(r => r.Id);
-            Property(r => r.Code)
-                .HasMaxLength(3)
-                .HasColumnType("varchart")
-                .HasColumnName("code");
+    class RecordConfiguration : IEntityTypeConfiguration<Record>
+    {         
 
-            Property(r => r.Name).
-                HasColumnType("varchart").
-                HasColumnName("value");
+        public void Configure(EntityTypeBuilder<Record> builder)
+        {
+            builder.HasKey(r => r.Id);
+            builder.HasIndex(r => r.Id);
+
+            builder.ToTable("tbl_Record");
+
+            builder.Property(r => r.Code)
+                    .HasMaxLength(3)
+                    .HasColumnType("varchar")
+                    .HasColumnName("code");
+
+            builder.Property(r => r.Name)
+                    .HasColumnName("value");
         }
     }
 }

@@ -1,5 +1,5 @@
 ﻿using DataAccessLayer.Entities;
-using System.Data.Entity;
+using Microsoft.EntityFrameworkCore;
 
 namespace DataAccessLayer.EntityFramework
 {
@@ -7,14 +7,15 @@ namespace DataAccessLayer.EntityFramework
     {
         public DbSet<Record> Records { get; set; }
 
-        public RecordContext(string connectionString)
-                    : base(connectionString)
+        public RecordContext(DbContextOptions<RecordContext> options)
+                    : base(options)
         {
+            Database.EnsureCreated();
         }
 
-        protected override void OnModelCreating(DbModelBuilder modelBuilder)
+        protected override void OnModelCreating(ModelBuilder modelBuilder)
         {
-            modelBuilder.Configurations.Add(new RecordConfiguration());
+            modelBuilder.ApplyConfiguration(new RecordConfiguration());
         }
     }
 }
