@@ -7,7 +7,7 @@ namespace LogicLayer.Interfaces
     {
         public IEnumerable<RecordDTO> GetRecords();
         RecordDTO GetRecord(int id);
-        void AddRecord(RecordDTO record);
+        int AddRecord(RecordDTO record);
         void ChangeRecord(RecordDTO record);
         void Dispose();
     }
