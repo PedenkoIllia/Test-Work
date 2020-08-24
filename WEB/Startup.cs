@@ -1,5 +1,7 @@
 using AutoMapper;
+using FluentValidation;
 using FluentValidation.AspNetCore;
+using LogicLayer.DataTransferObjects;
 using LogicLayer.Interfaces;
 using LogicLayer.Mapper;
 using LogicLayer.Services;
@@ -9,6 +11,7 @@ using Microsoft.Extensions.Configuration;
 using Microsoft.Extensions.DependencyInjection;
 using Microsoft.Extensions.Hosting;
 using Root;
+using WEB.Validators;
 
 namespace WEB
 {
@@ -34,13 +37,15 @@ namespace WEB
             IMapper mapper = mappingConfig.CreateMapper();
             services.AddSingleton(mapper);
 
-            services.AddControllers()
-                .AddFluentValidation();
+            services.AddControllers().
+                AddFluentValidation();
+            services.AddTransient<IValidator<RecordDTO>, RecordValidator>();
+
+            services.AddCors();
         }
 
         public void Configure(IApplicationBuilder app)
         {
-            app.UseHttpsRedirection();
 
             app.UseRouting();
 
