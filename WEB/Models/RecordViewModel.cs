@@ -1,9 +1,10 @@
-﻿namespace WEB.Models
+﻿using LogicLayer.DataTransferObjects;
+using System.Collections.Generic;
+
+namespace WEB.Models
 {
     public class RecordViewModel
     {
-        public int Id { get; set; }
-        public string Code { get; set; }
-        public string Name { get; set; }
+        public IEnumerable<RecordDTO> Records { get; set; }
     }
 }
