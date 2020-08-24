@@ -3,6 +3,7 @@ using DataAccessLayer.EntityFramework;
 using DataAccessLayer.Interfaces;
 using Microsoft.EntityFrameworkCore;
 using System.Collections.Generic;
+using System.Linq;
 
 namespace DataAccessLayer.Repositories
 {
@@ -32,7 +33,7 @@ namespace DataAccessLayer.Repositories
 
         public IEnumerable<Record> GetAll()
         {
-            return db.Records;
+            return db.Records.ToList();
         }
 
         public void Save() 
