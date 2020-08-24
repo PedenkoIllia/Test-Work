@@ -2,6 +2,7 @@
 using DataAccessLayer.Entities;
 using DataAccessLayer.Interfaces;
 using LogicLayer.DataTransferObjects;
+using LogicLayer.Exceptions;
 using LogicLayer.Interfaces;
 using System.Collections.Generic;
 
@@ -28,17 +29,28 @@ namespace LogicLayer.Services
             return _mapper.Map<RecordDTO>(rec);
         }
 
-        public void AddRecord(RecordDTO rec)
+        public int AddRecord(RecordDTO rec)
         {
             Record record = _mapper.Map<Record>(rec);
             Database.Records.Create(record);
             Database.Save();
+
+            return record.Id;
         }
 
         public void ChangeRecord(RecordDTO rec)
         {
             Record record = _mapper.Map<Record>(rec);
-            Database.Records.Update(record);
+            Record originRec = Database.Records.Get(record.Id);
+            if (originRec == null)
+                throw new RecordNotFoundException($"Запись с id: {record.Id} не существует.", "NotFound");
+
+            originRec.Code = record.Code;
+            originRec.Name = record.Name;
+
+            Database.Records.Update(originRec);
+            Database.Save();
+                
         }
 
         public IEnumerable<RecordDTO> GetRecords()
