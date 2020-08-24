@@ -1,4 +1,4 @@
-﻿using System;
+﻿using WEB.Filters;
 using System.Collections.Generic;
 using System.Linq;
 using System.Threading.Tasks;
@@ -9,10 +9,15 @@ using LogicLayer.Services;
 using Microsoft.AspNetCore.Http;
 using Microsoft.AspNetCore.Mvc;
 using WEB.Models;
+using LogicLayer.Exceptions;
+using WEB.Validators;
+using FluentValidation;
+using FluentValidation.AspNetCore;
+using Ninject.Activation;
 
 namespace WEB.Controllers
 {
-    [Route("api/[controller]")]
+    [Route("/")]
     [ApiController]
     public class HomeController : ControllerBase
     {
@@ -25,34 +30,38 @@ namespace WEB.Controllers
         }
 
         [HttpGet]
-        public IEnumerable<RecordViewModel> Get()
+        public RecordViewModel Get()
         {
-            IEnumerable<RecordDTO> list = service.GetRecords();
+            RecordViewModel model = new RecordViewModel();
+            model.Records = service.GetRecords();
 
-            var mapper = new MapperConfiguration(config => config.CreateMap<RecordDTO, RecordViewModel>()).CreateMapper();
-            IEnumerable<RecordViewModel> result = mapper.Map<IEnumerable<RecordDTO>, List<RecordViewModel>>(list);
-
-            return result;
+            return model;
         }
 
-        // POST: api/Home
+        // POST
         [HttpPost]
-        public ActionResult Post([FromBody] RecordViewModel record)
+        public ActionResult Post(RecordDTO record)
         {
-            if (!ModelState.IsValid) 
+            record.Id = service.AddRecord(record);
+            return Ok(record);
+        }
+
+        // PUT
+        [HttpPut]
+        [AddCookieWithId]
+        public ActionResult Put([CustomizeValidator(RuleSet = "*")] RecordDTO record)
+        {
+            try
             {
-                return RedirectToAction("Get");
+                service.ChangeRecord(record);
+                return Ok(record);
+            }
+            catch (RecordNotFoundException ex)
+            {
+                ModelState.AddModelError(ex.Property, ex.Message);
             }
 
-            service.AddRecord(new RecordDTO { Code = record.Code, Name = record.Name });
-
-            return Ok();
-        }
-
-        // PUT: api/Home/5
-        [HttpPut("{id}")]
-        public void Put(int id, [FromBody] string value)
-        {
+            return BadRequest();
         }
     }
 }
