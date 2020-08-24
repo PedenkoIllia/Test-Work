@@ -15,8 +15,7 @@ namespace DataAccessLayer.EntityFramework
             builder.ToTable("tbl_Record");
 
             builder.Property(r => r.Code)
-                    .HasMaxLength(3)
-                    .HasColumnType("varchar")
+                    .HasColumnType("varchar(3)")
                     .HasColumnName("code");
 
             builder.Property(r => r.Name)
