@@ -1,9 +1,6 @@
 ﻿using AutoMapper;
 using DataAccessLayer.Entities;
 using LogicLayer.DataTransferObjects;
-using System;
-using System.Collections.Generic;
-using System.Text;
 
 namespace LogicLayer.Mapper
 {
@@ -13,7 +10,6 @@ namespace LogicLayer.Mapper
         {
             CreateMap<Record, RecordDTO>();
             CreateMap<RecordDTO, Record>();
-            CreateMap<IEnumerable<Record>, List<RecordDTO>>();
         }
     }
 }
