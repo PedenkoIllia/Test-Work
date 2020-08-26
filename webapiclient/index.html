@@ -1,0 +1,48 @@
+<!DOCTYPE html>
+<html>
+<head>
+    <meta charset="UTF-8">
+    <title>Alef Vinal</title>
+    <link rel="stylesheet" href="css/style.css">
+    <script src="javascript/event.js"></script>
+</head>
+<body>
+    <div class="container">
+        <div class="labels">
+            <label for="changeid" class="info">ИД</label>
+            <label for="changevalue" class="info">Значение</label>
+            <label for="changename" class="info">Имя</label>
+            <div class="empty"></div>
+            <label for="value" class="info">Значение</label>
+            <label for="name" class="info">Имя</label>
+        </div>
+
+        <div class="datainput">
+            <!--change record-->
+            <form id="formchange" action="" autocomplete="off">
+                <input id="changeid" name="id" type="text" class="data"/>
+                <input id="changevalue" name="code" type="text" class="data">
+                <input id="changename" name="name" type="text" class="data">
+                <input type="submit" value="Изменить" class="btn">
+            </form>
+            <!--Add record-->
+            <form id="formadd" action="" autocomplete="off">
+                <input id="value" name="code" type="text" class="data">
+                <input id="name" name="name" type="text" class="data">
+                <input type="submit" value="Создать" class="btn">
+            </form>
+        </div>
+        <!--records list--> 
+       <div id="list" class="recordslist">
+            <!--<span>
+                <p class="hidden">100</p>
+                <p class="codename">123 Name</p>
+            </span>
+            <span>
+                <p class="hidden">100</p>
+                <p id="js" class="codename">123 Name</p>
+            </span>-->
+        </div>
+    </div>
+</body>
+</html>
