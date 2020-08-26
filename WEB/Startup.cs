@@ -49,7 +49,10 @@ namespace WEB
 
             app.UseRouting();
 
-            app.UseCors(builder => builder.AllowAnyOrigin());
+            app.UseCors(builder => builder.WithOrigins("http://localhost:8080") //front address
+                .AllowAnyHeader()
+                .AllowAnyMethod()
+                .AllowCredentials());
 
             app.UseEndpoints(endpoints =>
             {
