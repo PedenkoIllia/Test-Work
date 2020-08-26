@@ -61,7 +61,7 @@ namespace WEB.Controllers
                 ModelState.AddModelError(ex.Property, ex.Message);
             }
 
-            return BadRequest();
+            return BadRequest(ModelState);
         }
     }
 }

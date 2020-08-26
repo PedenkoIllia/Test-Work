@@ -43,7 +43,7 @@ namespace LogicLayer.Services
             Record record = _mapper.Map<Record>(rec);
             Record originRec = Database.Records.Get(record.Id);
             if (originRec == null)
-                throw new RecordNotFoundException($"Запись с id: {record.Id} не существует.", "NotFound");
+                throw new RecordNotFoundException($"Запись с id: {record.Id} не существует.", "IdProblem");
 
             originRec.Code = record.Code;
             originRec.Name = record.Name;
